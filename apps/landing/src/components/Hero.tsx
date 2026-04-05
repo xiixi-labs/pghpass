@@ -18,7 +18,7 @@ export function Hero() {
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         {/* Eyebrow */}
         <p className="text-xs font-bold tracking-[0.08em] uppercase text-brand-gold mb-6">
-          Launching August 23rd
+          Coming soon to Pittsburgh
         </p>
 
         {/* Headline */}

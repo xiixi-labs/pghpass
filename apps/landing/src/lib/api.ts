@@ -40,7 +40,7 @@ export async function submitWaitlist(
       if (error.code === '23505') {
         return { success: true, message: "You're already on the list!" };
       }
-      console.error('Waitlist insert error:', error);
+      console.error('Waitlist insert error:', error.message, error.code, error.details, error.hint);
       return { success: false, message: 'Something went wrong. Please try again.' };
     }
 

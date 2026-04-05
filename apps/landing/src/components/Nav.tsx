@@ -21,9 +21,9 @@ export function Nav() {
         </p>
       </div>
 
-      {/* Nav — fixed, slides under the date bar as you scroll */}
+      {/* Nav — fixed below the date bar */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
             ? 'glass bg-surface/72 border-b border-rule/50'
             : 'bg-transparent'
