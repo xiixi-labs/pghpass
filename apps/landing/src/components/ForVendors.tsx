@@ -42,7 +42,7 @@ export function ForVendors() {
           </div>
 
           {/* Right — benefits */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-x-5 gap-y-8">
             {vendorBenefits.map((benefit) => (
               <div key={benefit.title}>
                 <h3 className="text-base font-semibold text-ink tracking-[-0.02em] mb-2">
