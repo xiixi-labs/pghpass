@@ -18,10 +18,14 @@ export async function submitWaitlist(
     if (existing) {
       // If comment provided, update the existing entry
       if (comment) {
-        await supabase
+        const { error: updateError } = await supabase
           .from('waitlist')
           .update({ comment })
           .eq('email', email.toLowerCase());
+
+        if (updateError) {
+          console.error('Waitlist update error:', updateError.message, updateError.code);
+        }
       }
       return { success: true, message: "You're already on the list!" };
     }
