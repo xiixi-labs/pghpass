@@ -28,11 +28,14 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-function Pill({ name }: { name: string }) {
+function Place({ name }: { name: string }) {
   return (
-    <span className="px-4 py-2 text-sm font-medium text-ink-2 bg-surface border border-rule rounded-full whitespace-nowrap shrink-0">
-      {name}
-    </span>
+    <>
+      <span className="font-serif text-lg text-ink-2 tracking-[-0.01em] whitespace-nowrap shrink-0">
+        {name}
+      </span>
+      <span className="text-brand-gold mx-3 select-none shrink-0" aria-hidden>·</span>
+    </>
   );
 }
 
@@ -59,20 +62,20 @@ export function PittsburghPride() {
         </p>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-6">
         {/* Top row — scrolls left */}
         <div className="relative">
-          <div className="flex gap-3 animate-scroll-left">
-            {topRow.map((name) => <Pill key={`a-${name}`} name={name} />)}
-            {topRow.map((name) => <Pill key={`b-${name}`} name={name} />)}
+          <div className="flex items-center animate-scroll-left">
+            {topRow.map((name) => <Place key={`a-${name}`} name={name} />)}
+            {topRow.map((name) => <Place key={`b-${name}`} name={name} />)}
           </div>
         </div>
 
         {/* Bottom row — scrolls right */}
         <div className="relative">
-          <div className="flex gap-3 animate-scroll-right">
-            {bottomRow.map((name) => <Pill key={`a-${name}`} name={name} />)}
-            {bottomRow.map((name) => <Pill key={`b-${name}`} name={name} />)}
+          <div className="flex items-center animate-scroll-right">
+            {bottomRow.map((name) => <Place key={`a-${name}`} name={name} />)}
+            {bottomRow.map((name) => <Place key={`b-${name}`} name={name} />)}
           </div>
         </div>
       </div>

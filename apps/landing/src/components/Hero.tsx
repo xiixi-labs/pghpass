@@ -22,8 +22,10 @@ export function Hero() {
         </p>
 
         {/* Headline */}
-        <h1 className="font-serif text-[48px] md:text-[64px] lg:text-[80px] leading-[1] tracking-[-0.03em] text-ink mb-6">
-          Earn rewards at every local spot you love.
+        <h1 className="font-serif text-[48px] md:text-[64px] lg:text-[80px] leading-[1.05] tracking-[-0.03em] text-ink mb-6">
+          Shop local.<br />
+          <em>Get rewarded.</em><br />
+          Keep Pittsburgh thriving.
         </h1>
 
         {/* Subhead */}
