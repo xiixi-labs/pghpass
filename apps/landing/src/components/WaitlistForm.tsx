@@ -75,7 +75,7 @@ export function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'd
           </button>
         </div>
         {step === 'error' && (
-          <p className="text-brand-red text-sm">{errorMsg}</p>
+          <p className="text-brand-red text-sm text-center">{errorMsg}</p>
         )}
       </form>
     );
@@ -84,33 +84,32 @@ export function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'd
   // ── Step 2: Optional comment ──────────────────────────────────────────────
   if (step === 'comment' || step === 'sending') {
     return (
-      <div className="flex flex-col gap-4 w-full max-w-md">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center shrink-0">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8.5L6.5 12L13 4" stroke="#1A8F4B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-          <p className={`text-base font-semibold ${isDark ? 'text-dark-text' : 'text-ink'}`}>
-            You&rsquo;re on the list!
+      <div className="flex flex-col items-center gap-5 w-full max-w-md">
+        <div className="text-center">
+          <p className={`font-serif text-2xl tracking-[-0.02em] mb-1 ${isDark ? 'text-dark-text' : 'text-ink'}`}>
+            You&rsquo;re on the list.
+          </p>
+          <p className={`text-sm ${isDark ? 'text-dark-text-secondary' : 'text-ink-3'}`}>
+            We&rsquo;ll let you know when PGH Pass is ready.
           </p>
         </div>
 
-        <p className={`text-sm ${isDark ? 'text-dark-text-secondary' : 'text-ink-3'}`}>
-          Anything you&rsquo;d like us to know?
-        </p>
+        <div className="w-full">
+          <p className={`text-xs font-semibold tracking-[0.04em] uppercase mb-2 ${isDark ? 'text-dark-text-tertiary' : 'text-ink-4'}`}>
+            Anything you&rsquo;d like us to know?
+          </p>
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Thoughts, questions, your neighborhood..."
+            disabled={step === 'sending'}
+            rows={3}
+            className={textareaClass}
+            autoFocus
+          />
+        </div>
 
-        <textarea
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="Share your thoughts, questions, or neighborhood..."
-          disabled={step === 'sending'}
-          rows={3}
-          className={textareaClass}
-          autoFocus
-        />
-
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 w-full">
           <button
             onClick={handleSendComment}
             disabled={step === 'sending'}
@@ -137,14 +136,12 @@ export function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'd
 
   // ── Step 3: Done ──────────────────────────────────────────────────────────
   return (
-    <div className="flex items-center gap-3 py-2">
-      <div className="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center shrink-0">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M3 8.5L6.5 12L13 4" stroke="#1A8F4B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </div>
-      <p className={`text-base font-medium ${isDark ? 'text-dark-text' : 'text-ink'}`}>
-        Thanks — we&rsquo;ll be in touch when PGH Pass launches.
+    <div className="text-center py-2">
+      <p className={`font-serif text-2xl tracking-[-0.02em] mb-1 ${isDark ? 'text-dark-text' : 'text-ink'}`}>
+        Thank you.
+      </p>
+      <p className={`text-sm ${isDark ? 'text-dark-text-secondary' : 'text-ink-3'}`}>
+        We&rsquo;ll be in touch when PGH Pass launches.
       </p>
     </div>
   );
