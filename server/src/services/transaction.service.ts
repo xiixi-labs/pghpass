@@ -162,7 +162,7 @@ export async function claimNFCTransaction(
 
   // 2. Parse and filter candidates
   const candidates: (QueueEntry & { raw: string })[] = entries
-    .map((raw) => ({ ...JSON.parse(raw), raw }))
+    .map((raw: string) => ({ ...JSON.parse(raw), raw }))
     .filter((entry: QueueEntry & { raw: string }) => {
       const createdTime = new Date(entry.created_at).getTime();
       // Must be created before tap time

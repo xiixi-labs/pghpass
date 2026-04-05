@@ -507,7 +507,7 @@ function nextId() {
  * Minimalist SQL pattern matcher for DEV_MODE.
  * Handles the specific queries used by the app routes/services.
  */
-function memQuery<T>(text: string, params?: unknown[]): pg.QueryResult<T> {
+function memQuery<T extends pg.QueryResultRow>(text: string, params?: unknown[]): pg.QueryResult<T> {
   const sql = text.replace(/\s+/g, ' ').trim().toLowerCase();
   const p = params ?? [];
 

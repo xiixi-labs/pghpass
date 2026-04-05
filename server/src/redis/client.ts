@@ -108,10 +108,10 @@ const memRedis = {
 };
 
 // Fix SET with NX — re-implement properly
-memRedis.set = async (key: string, value: string, ...args: any[]) => {
+memRedis.set = async (key: string, value: string, ...args: any[]): Promise<string> => {
   const nxIdx = args.indexOf('NX');
   if (nxIdx !== -1 && store.has(key)) {
-    return null; // NX failed — key already exists
+    return 'NULL'; // NX failed — key already exists
   }
 
   store.set(key, value);
