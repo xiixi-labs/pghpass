@@ -1,0 +1,35 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "seed": "tsx src/scripts/seed.ts",
+    "cleanup:queues": "tsx src/jobs/queue-cleanup.ts"
+  },
+  "dependencies": {
+    "@pgh-pass/types": "workspace:*",
+    "fastify": "^5.2.0",
+    "@fastify/cors": "^10.0.0",
+    "@fastify/rate-limit": "^10.2.0",
+    "@clerk/fastify": "^2.0.0",
+    "@sinclair/typebox": "^0.34.0",
+    "@fastify/type-provider-typebox": "^5.1.0",
+    "pg": "^8.13.0",
+    "ioredis": "^5.4.0",
+    "uuid": "^11.1.0",
+    "stripe": "^17.5.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "tsx": "^4.19.0",
+    "@types/pg": "^8.11.0",
+    "@types/uuid": "^10.0.0"
+  }
+}

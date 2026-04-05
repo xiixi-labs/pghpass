@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Brand Colors ── */
+  --color-brand-blue: #003087;
+  --color-brand-blue-light: #1A4FA0;
+  --color-brand-gold: #C8900A;
+  --color-brand-gold-light: #E5B84C;
+  --color-brand-red: #C60C30;
+
+  /* ── Brand Tints ── */
+  --color-blue-tint: #EEF1F8;
+  --color-gold-tint: #FDF8EE;
+  --color-red-tint: #FCEEF1;
+
+  /* ── Dark Palette ── */
+  --color-dark: #0A0A0C;
+  --color-dark-2: #141418;
+  --color-dark-3: #1C1C22;
+  --color-dark-4: #26262E;
+  --color-dark-text: #FAFAFA;
+  --color-dark-text-secondary: rgba(255, 255, 255, 0.6);
+  --color-dark-text-tertiary: rgba(255, 255, 255, 0.35);
+  --color-dark-border: rgba(255, 255, 255, 0.08);
+
+  /* ── Neutrals ── */
+  --color-ink: #0E0E10;
+  --color-ink-2: #3A3A3E;
+  --color-ink-3: #7A7A82;
+  --color-ink-4: #B0B0B8;
+  --color-rule: #E8E8EC;
+  --color-rule-2: #F2F2F5;
+
+  /* ── Surfaces ── */
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #F9F9F7;
+  --color-screen: #F6F6F4;
+  --color-page: #EEECEA;
+
+  /* ── Semantic ── */
+  --color-success: #1A8F4B;
+  --color-error: #C60C30;
+  --color-warning: #B8760A;
+
+  /* ── Font Families ── */
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+
+  /* ── Border Radius ── */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
+/* ── Base Styles ── */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-ink);
+  background-color: var(--color-screen);
+}
+
+/* ── Scroll-triggered fade-in ── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Glass effect ── */
+.glass {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ── Carousel scroll animations ── */
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 60s linear infinite;
+}
+
+.animate-scroll-right {
+  animation: scroll-right 60s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-left,
+  .animate-scroll-right {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

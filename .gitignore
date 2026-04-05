@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.dev
+.turbo/
+.expo/
+*.tsbuildinfo
+ios/
+android/
+.next/
+.augment/
+.claude/
+.agents/

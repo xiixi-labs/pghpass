@@ -1,0 +1,10 @@
+export type UserRole = 'customer' | 'vendor' | 'admin' | 'city';
+export type VendorStatus = 'pending' | 'active' | 'suspended' | 'cancelled';
+export type SubscriptionPlan = 'basic' | 'pro' | 'premium';
+export type TransactionSource = 'qr' | 'nfc' | 'square' | 'toast' | 'manual';
+export type TransactionStatus = 'pending' | 'claimed' | 'expired' | 'voided';
+export type RedemptionStatus = 'issued' | 'claimed' | 'expired' | 'reversed';
+export type PoolEntryType = 'contribution' | 'redemption_payout' | 'breakage' | 'refund_reversal';
+export type FraudFlagType = 'velocity' | 'amount_mismatch' | 'vendor_anomaly' | 'multi_account';
+export type PostType = 'update' | 'deal' | 'flash';
+export type Platform = 'ios' | 'android';
