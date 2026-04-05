@@ -1,15 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { submitWaitlist } from '@/lib/api';
 
-type Step = 'idle' | 'loading' | 'comment' | 'sending' | 'done' | 'error';
+type Step = 'idle' | 'loading' | 'fade-out' | 'comment' | 'sending' | 'fade-done' | 'done' | 'error';
 
 export function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'dark' }) {
   const [email, setEmail] = useState('');
   const [comment, setComment] = useState('');
   const [step, setStep] = useState<Step>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [visible, setVisible] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const isDark = variant === 'dark';
 
@@ -25,6 +27,15 @@ export function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'd
       : 'bg-surface text-ink border border-rule placeholder:text-ink-4 focus:border-brand-gold'
   }`;
 
+  // Smooth transition helper
+  const transitionTo = (nextStep: Step) => {
+    setVisible(false);
+    setTimeout(() => {
+      setStep(nextStep);
+      setVisible(true);
+    }, 400);
+  };
+
   const handleJoin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim() || step === 'loading') return;
@@ -33,7 +44,7 @@ export function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'd
     const result = await submitWaitlist(email.trim(), 'customer');
 
     if (result.success) {
-      setStep('comment');
+      transitionTo('comment');
     } else {
       setStep('error');
       setErrorMsg(result.message);
@@ -42,51 +53,59 @@ export function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'd
 
   const handleSendComment = async () => {
     if (!comment.trim()) {
-      setStep('done');
+      transitionTo('done');
       return;
     }
     setStep('sending');
     await submitWaitlist(email.trim(), 'customer', comment.trim());
-    setStep('done');
+    transitionTo('done');
   };
 
-  const handleSkip = () => setStep('done');
+  const handleSkip = () => transitionTo('done');
+
+  const transitionStyle = {
+    opacity: visible ? 1 : 0,
+    transform: visible ? 'translateY(0)' : 'translateY(12px)',
+    transition: 'opacity 0.4s ease, transform 0.4s ease',
+  };
 
   // ── Step 1: Email capture ─────────────────────────────────────────────────
   if (step === 'idle' || step === 'loading' || step === 'error') {
     return (
-      <form onSubmit={handleJoin} className="flex flex-col gap-3 w-full max-w-md">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            required
-            disabled={step === 'loading'}
-            className={inputClass}
-          />
-          <button
-            type="submit"
-            disabled={step === 'loading'}
-            className="bg-brand-gold text-surface font-semibold px-6 py-3 rounded-xl hover:brightness-110 transition-all duration-200 disabled:opacity-60 shrink-0"
-          >
-            {step === 'loading' ? 'Joining...' : 'Join Waitlist'}
-          </button>
-        </div>
-        {step === 'error' && (
-          <p className="text-brand-red text-sm text-center">{errorMsg}</p>
-        )}
-      </form>
+      <div ref={containerRef} style={transitionStyle}>
+        <form onSubmit={handleJoin} className="flex flex-col gap-3 w-full max-w-md">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+              disabled={step === 'loading'}
+              className={inputClass}
+            />
+            <button
+              type="submit"
+              disabled={step === 'loading'}
+              className="bg-brand-gold text-surface font-semibold px-6 py-3 rounded-xl hover:brightness-110 transition-all duration-200 disabled:opacity-60 shrink-0"
+            >
+              {step === 'loading' ? 'Joining...' : 'Join Waitlist'}
+            </button>
+          </div>
+          {step === 'error' && (
+            <p className="text-brand-red text-sm text-center">{errorMsg}</p>
+          )}
+        </form>
+      </div>
     );
   }
 
   // ── Step 2: Optional comment ──────────────────────────────────────────────
   if (step === 'comment' || step === 'sending') {
     return (
-      <div className="flex flex-col items-center gap-5 w-full max-w-md">
-        <div className="text-center">
-          <p className={`font-serif text-2xl tracking-[-0.02em] mb-1 ${isDark ? 'text-dark-text' : 'text-ink'}`}>
+      <div ref={containerRef} style={transitionStyle} className="flex flex-col items-center gap-6 w-full max-w-md">
+        <div className="text-center space-y-2">
+          <p className={`font-serif text-[26px] md:text-[30px] tracking-[-0.02em] ${isDark ? 'text-dark-text' : 'text-ink'}`}>
             You&rsquo;re on the list.
           </p>
           <p className={`text-sm ${isDark ? 'text-dark-text-secondary' : 'text-ink-3'}`}>
@@ -94,8 +113,8 @@ export function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'd
           </p>
         </div>
 
-        <div className="w-full">
-          <p className={`text-xs font-semibold tracking-[0.04em] uppercase mb-2 ${isDark ? 'text-dark-text-tertiary' : 'text-ink-4'}`}>
+        <div className="w-full space-y-2">
+          <p className={`text-xs font-semibold tracking-[0.04em] uppercase ${isDark ? 'text-dark-text-tertiary' : 'text-ink-4'}`}>
             Anything you&rsquo;d like us to know?
           </p>
           <textarea
@@ -105,11 +124,10 @@ export function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'd
             disabled={step === 'sending'}
             rows={3}
             className={textareaClass}
-            autoFocus
           />
         </div>
 
-        <div className="flex items-center gap-4 w-full">
+        <div className="flex items-center gap-5 w-full">
           <button
             onClick={handleSendComment}
             disabled={step === 'sending'}
@@ -136,8 +154,8 @@ export function WaitlistForm({ variant = 'default' }: { variant?: 'default' | 'd
 
   // ── Step 3: Done ──────────────────────────────────────────────────────────
   return (
-    <div className="text-center py-2">
-      <p className={`font-serif text-2xl tracking-[-0.02em] mb-1 ${isDark ? 'text-dark-text' : 'text-ink'}`}>
+    <div ref={containerRef} style={transitionStyle} className="text-center py-4 space-y-2">
+      <p className={`font-serif text-[26px] md:text-[30px] tracking-[-0.02em] ${isDark ? 'text-dark-text' : 'text-ink'}`}>
         Thank you.
       </p>
       <p className={`text-sm ${isDark ? 'text-dark-text-secondary' : 'text-ink-3'}`}>
