@@ -5,7 +5,8 @@ export function Hero() {
   return (
     <section
       id="waitlist"
-      className="relative min-h-[85vh] flex flex-col items-center justify-start px-6 md:px-8 pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden"
+      className="relative min-h-[100vh] flex flex-col items-center justify-start px-6 md:px-8 overflow-hidden"
+      style={{ marginTop: 'calc(-2rem - 4rem)' }}
     >
       <Image
         src="/hero-bg.png"
@@ -15,6 +16,10 @@ export function Hero() {
         priority
       />
       <div className="absolute inset-0 bg-screen/60 z-[1]" />
+
+      {/* Spacer to push content below the nav bar */}
+      <div className="shrink-0" style={{ height: 'calc(2rem + 4rem + 4rem)' }} />
+
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         {/* Eyebrow */}
         <p className="text-xs font-bold tracking-[0.08em] uppercase text-brand-gold mb-6">
