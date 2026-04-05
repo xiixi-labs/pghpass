@@ -1,4 +1,6 @@
-import { WaitlistForm } from './WaitlistForm';
+'use client';
+
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const vendorBenefits = [
   {
@@ -22,23 +24,26 @@ const vendorBenefits = [
 ];
 
 export function ForVendors() {
+  const headerRef = useScrollReveal<HTMLDivElement>();
+  const gridRef = useScrollReveal<HTMLDivElement>();
+
   return (
     <section className="px-6 md:px-8 py-24 md:py-32 lg:py-40 bg-surface-raised">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <p className="text-xs font-bold tracking-[0.08em] uppercase text-brand-gold mb-4">
-          For businesses
-        </p>
-        <h2 className="font-serif text-[28px] md:text-[38px] tracking-[-0.03em] text-ink mb-6">
-          Grow your business with PGH&nbsp;Pass
-        </h2>
-        <p className="text-base text-ink-3 leading-relaxed mb-12 max-w-lg">
-          Join a city-wide loyalty network that sends customers your way — and keeps them
-          coming back.
-        </p>
+        <div ref={headerRef} className="reveal">
+          <p className="text-xs font-bold tracking-[0.08em] uppercase text-brand-gold mb-4">
+            For businesses
+          </p>
+          <h2 className="font-serif text-[28px] md:text-[38px] tracking-[-0.03em] text-ink mb-6">
+            Grow your business with PGH&nbsp;Pass
+          </h2>
+          <p className="text-base text-ink-3 leading-relaxed mb-12 max-w-lg">
+            Join a city-wide loyalty network that sends customers your way — and keeps them
+            coming back.
+          </p>
+        </div>
 
-        {/* 2x2 benefits */}
-        <div className="grid grid-cols-2 gap-x-5 gap-y-8 mb-12">
+        <div ref={gridRef} className="reveal-stagger grid grid-cols-2 gap-x-5 gap-y-8">
           {vendorBenefits.map((benefit) => (
             <div key={benefit.title} className="border-l-[3px] border-brand-gold/40 pl-4">
               <h3 className="text-base font-semibold text-ink tracking-[-0.02em] mb-2">
@@ -50,9 +55,6 @@ export function ForVendors() {
             </div>
           ))}
         </div>
-
-        {/* Waitlist */}
-        <WaitlistForm />
       </div>
     </section>
   );

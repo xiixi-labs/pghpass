@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const allPlaces = [
   'Lawrenceville', 'Strip District', 'Squirrel Hill', 'Shadyside', 'South Side',
@@ -40,6 +41,9 @@ function Place({ name }: { name: string }) {
 }
 
 export function PittsburghPride() {
+  const headerRef = useScrollReveal<HTMLDivElement>();
+  const marqueeRef = useScrollReveal<HTMLDivElement>(0.05);
+
   const [topRow, bottomRow] = useMemo(() => {
     const shuffled = shuffle(allPlaces);
     const mid = Math.ceil(shuffled.length / 2);
@@ -48,7 +52,7 @@ export function PittsburghPride() {
 
   return (
     <section className="py-24 md:py-32 lg:py-40 bg-surface overflow-hidden">
-      <div className="max-w-4xl mx-auto text-center px-6 md:px-8">
+      <div ref={headerRef} className="reveal max-w-4xl mx-auto text-center px-6 md:px-8">
         <p className="text-xs font-bold tracking-[0.08em] uppercase text-brand-gold mb-4">
           Made here
         </p>
@@ -62,7 +66,7 @@ export function PittsburghPride() {
         </p>
       </div>
 
-      <div className="space-y-6 relative">
+      <div ref={marqueeRef} className="reveal space-y-6 relative">
         {/* Edge fade masks */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-24 md:w-40 bg-gradient-to-r from-surface to-transparent z-10" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-24 md:w-40 bg-gradient-to-l from-surface to-transparent z-10" />

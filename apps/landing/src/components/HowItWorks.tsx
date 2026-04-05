@@ -1,3 +1,7 @@
+'use client';
+
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+
 const steps = [
   {
     number: '01',
@@ -20,17 +24,22 @@ const steps = [
 ];
 
 export function HowItWorks() {
+  const headerRef = useScrollReveal<HTMLDivElement>();
+  const gridRef = useScrollReveal<HTMLDivElement>();
+
   return (
     <section className="px-6 md:px-8 py-24 md:py-32 lg:py-40 bg-surface">
       <div className="max-w-6xl mx-auto">
-        <p className="text-xs font-bold tracking-[0.08em] uppercase text-brand-gold mb-4 text-center">
-          How it works
-        </p>
-        <h2 className="font-serif text-[28px] md:text-[38px] tracking-[-0.03em] text-ink text-center mb-16 md:mb-20">
-          Three steps. Zero friction.
-        </h2>
+        <div ref={headerRef} className="reveal text-center">
+          <p className="text-xs font-bold tracking-[0.08em] uppercase text-brand-gold mb-4">
+            How it works
+          </p>
+          <h2 className="font-serif text-[28px] md:text-[38px] tracking-[-0.03em] text-ink mb-16 md:mb-20">
+            Three steps. Zero friction.
+          </h2>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+        <div ref={gridRef} className="reveal-stagger grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
           {steps.map((step) => (
             <div key={step.number} className="text-center md:text-left">
               <span className="font-serif text-[56px] leading-none text-brand-gold/30 block mb-4">

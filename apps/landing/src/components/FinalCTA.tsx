@@ -1,9 +1,14 @@
+'use client';
+
 import { WaitlistForm } from './WaitlistForm';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export function FinalCTA() {
+  const ref = useScrollReveal<HTMLDivElement>();
+
   return (
     <section className="px-6 md:px-8 py-24 md:py-32 bg-dark text-dark-text">
-      <div className="max-w-2xl mx-auto text-center">
+      <div ref={ref} className="reveal max-w-2xl mx-auto text-center">
         <h2 className="font-serif text-[28px] md:text-[38px] tracking-[-0.03em] mb-4">
           Ready to join?
         </h2>

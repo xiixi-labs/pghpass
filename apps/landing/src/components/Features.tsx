@@ -1,3 +1,8 @@
+'use client';
+
+import Image from 'next/image';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+
 const features = [
   {
     title: 'One app, every local spot',
@@ -31,9 +36,10 @@ const features = [
   },
 ];
 
-import Image from 'next/image';
-
 export function Features() {
+  const headerRef = useScrollReveal<HTMLDivElement>();
+  const gridRef = useScrollReveal<HTMLDivElement>();
+
   return (
     <section
       id="features"
@@ -47,16 +53,18 @@ export function Features() {
       />
       <div className="absolute inset-0 bg-dark/80 z-[1]" />
       <div className="relative z-10 max-w-6xl mx-auto">
-        <p className="text-xs font-bold tracking-[0.08em] uppercase text-brand-gold mb-4 text-center">
-          Why PGH Pass
-        </p>
-        <h2 className="font-serif text-[28px] md:text-[38px] tracking-[-0.03em] text-center mb-10 md:mb-20">
-          Everything you need. Nothing you don&rsquo;t.
-        </h2>
+        <div ref={headerRef} className="reveal text-center">
+          <p className="text-xs font-bold tracking-[0.08em] uppercase text-brand-gold mb-4">
+            Why PGH Pass
+          </p>
+          <h2 className="font-serif text-[28px] md:text-[38px] tracking-[-0.03em] mb-10 md:mb-20">
+            Everything you need. Nothing you don&rsquo;t.
+          </h2>
+        </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-5 md:gap-12">
+        <div ref={gridRef} className="reveal-stagger grid grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-5 md:gap-12">
           {features.map((feature) => (
-            <div key={feature.title} className="border-t-2 border-brand-gold/30 pt-4 md:pt-5">
+            <div key={feature.title}>
               <h3 className="text-base md:text-lg font-semibold tracking-[-0.02em] mb-2 md:mb-3">
                 {feature.title}
               </h3>
