@@ -13,7 +13,7 @@ export async function submitWaitlist(
       .from('waitlist')
       .select('id')
       .eq('email', email.toLowerCase())
-      .single();
+      .maybeSingle();
 
     if (existing) {
       // If comment provided, update the existing entry

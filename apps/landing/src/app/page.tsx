@@ -4,7 +4,6 @@ import { Features } from '@/components/Features';
 import { ForVendors } from '@/components/ForVendors';
 import { PittsburghPride } from '@/components/PittsburghPride';
 import { FinalCTA } from '@/components/FinalCTA';
-import { LaunchDate } from '@/components/LaunchDate';
 
 export default function Home() {
   return (
@@ -14,7 +13,6 @@ export default function Home() {
       <Features />
       <ForVendors />
       <PittsburghPride />
-      <LaunchDate />
       <FinalCTA />
     </>
   );
