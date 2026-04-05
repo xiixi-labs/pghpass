@@ -23,7 +23,7 @@ const vendorBenefits = [
 
 export function ForVendors() {
   return (
-    <section className="px-6 md:px-8 py-24 md:py-32 lg:py-40">
+    <section className="px-6 md:px-8 py-24 md:py-32 lg:py-40 bg-surface-raised">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <p className="text-xs font-bold tracking-[0.08em] uppercase text-brand-gold mb-4">
@@ -40,7 +40,7 @@ export function ForVendors() {
         {/* 2x2 benefits */}
         <div className="grid grid-cols-2 gap-x-5 gap-y-8 mb-12">
           {vendorBenefits.map((benefit) => (
-            <div key={benefit.title}>
+            <div key={benefit.title} className="border-l-[3px] border-brand-gold/40 pl-4">
               <h3 className="text-base font-semibold text-ink tracking-[-0.02em] mb-2">
                 {benefit.title}
               </h3>

@@ -56,7 +56,7 @@ export function Features() {
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-5 md:gap-12">
           {features.map((feature) => (
-            <div key={feature.title}>
+            <div key={feature.title} className="border-t-2 border-brand-gold/30 pt-4 md:pt-5">
               <h3 className="text-base md:text-lg font-semibold tracking-[-0.02em] mb-2 md:mb-3">
                 {feature.title}
               </h3>
