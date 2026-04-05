@@ -5,7 +5,7 @@ export function Hero() {
   return (
     <section
       id="waitlist"
-      className="relative min-h-[90vh] flex flex-col items-center justify-center px-6 md:px-8 pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden"
+      className="relative min-h-[90vh] flex flex-col items-center justify-center px-6 md:px-8 pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden"
     >
       <Image
         src="/hero-bg.png"
