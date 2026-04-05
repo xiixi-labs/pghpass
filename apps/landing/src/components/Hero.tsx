@@ -38,15 +38,6 @@ export function Hero() {
         <div className="flex justify-center mb-6">
           <WaitlistForm />
         </div>
-
-        {/* Social proof hint */}
-        <div className="flex items-center justify-center gap-3">
-          <span className="h-px w-8 bg-ink-4/40" />
-          <p className="text-sm text-ink-3 font-medium">
-            Join 412+ Pittsburghers already on the waitlist
-          </p>
-          <span className="h-px w-8 bg-ink-4/40" />
-        </div>
       </div>
     </section>
   );
