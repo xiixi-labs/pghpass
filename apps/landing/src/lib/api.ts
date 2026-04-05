@@ -1,37 +1,65 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+import { createClient } from '@/utils/supabase/client';
 
 export async function submitWaitlist(
   email: string,
   role: 'customer' | 'vendor' = 'customer',
   comment?: string,
 ): Promise<{ success: boolean; message: string }> {
-  const res = await fetch(`${API_URL}/v1/waitlist`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, role, ...(comment && { comment }) }),
-  });
+  try {
+    const supabase = createClient();
 
-  if (res.status === 201) {
+    // Check if email already exists
+    const { data: existing } = await supabase
+      .from('waitlist')
+      .select('id')
+      .eq('email', email.toLowerCase())
+      .single();
+
+    if (existing) {
+      // If comment provided, update the existing entry
+      if (comment) {
+        await supabase
+          .from('waitlist')
+          .update({ comment })
+          .eq('email', email.toLowerCase());
+      }
+      return { success: true, message: "You're already on the list!" };
+    }
+
+    // Insert new entry
+    const { error } = await supabase
+      .from('waitlist')
+      .insert({
+        email: email.toLowerCase(),
+        role,
+        ...(comment && { comment }),
+      });
+
+    if (error) {
+      // Unique constraint violation
+      if (error.code === '23505') {
+        return { success: true, message: "You're already on the list!" };
+      }
+      console.error('Waitlist insert error:', error);
+      return { success: false, message: 'Something went wrong. Please try again.' };
+    }
+
     return { success: true, message: "You're in! We'll be in touch." };
+  } catch (err) {
+    console.error('Waitlist error:', err);
+    return { success: false, message: 'Something went wrong. Please try again.' };
   }
-
-  if (res.status === 409) {
-    return { success: true, message: "You're already on the list!" };
-  }
-
-  if (res.status === 429) {
-    return { success: false, message: 'Too many requests. Please try again later.' };
-  }
-
-  return { success: false, message: 'Something went wrong. Please try again.' };
 }
 
 export async function getWaitlistCount(): Promise<number> {
   try {
-    const res = await fetch(`${API_URL}/v1/waitlist/count`);
-    if (!res.ok) return 0;
-    const data = await res.json();
-    return data.count ?? 0;
+    const supabase = createClient();
+    const { count, error } = await supabase
+      .from('waitlist')
+      .select('*', { count: 'exact', head: true });
+
+    if (error) return 0;
+    return count ?? 0;
   } catch {
     return 0;
   }
