@@ -31,7 +31,7 @@ export function Nav() {
       >
         <div className="mx-auto max-w-6xl px-6 md:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <span className="font-serif text-2xl text-ink tracking-tight">
+            <span className="font-serif text-3xl text-ink tracking-tight">
               PGH Pass
             </span>
           </Link>
