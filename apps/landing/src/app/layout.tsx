@@ -31,12 +31,21 @@ export const metadata: Metadata = {
     siteName: 'PGH Pass',
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: 'https://pghpass.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'PGH Pass — Shop local. Get rewarded. Keep Pittsburgh thriving.',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'PGH Pass — Earn Rewards at Every Local Spot You Love',
     description:
       'Pittsburgh\'s city-wide loyalty points network. Earn points at local businesses, redeem anywhere.',
+    images: ['https://pghpass.com/og-image.png'],
   },
   metadataBase: new URL('https://pghpass.com'),
 };
